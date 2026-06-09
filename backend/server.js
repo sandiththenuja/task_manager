@@ -30,6 +30,7 @@ app.use("/api/users", userRoutes)
 app.use("/api/tasks", taskRoutes)
 app.use("/api/reports", reportRoutes)
 
+// the file upload is not working
 // server uploads folder
 app.use("/uploads", express.static(path.join(__dirname, "uploads")))
 
