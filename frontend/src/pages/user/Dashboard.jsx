@@ -10,6 +10,8 @@ import moment from 'moment'
 import InfoCard from '../../components/Cards/InfoCard'
 import { addThousandsSeparator } from '../../utils/helper'
 import {ioMdCard} from 'react-icons/io'
+import { LuArrowRight } from 'react-icons/lu'
+import TaskListTable from '../../components/TaskListTable'
 
 const Dashboard = () => {
   useUserAuth()
@@ -35,6 +37,10 @@ const Dashboard = () => {
     }
   }
 
+  const onSeeMore = () => {
+    navigate('/admin/tasks')
+  }
+
   useEffect(() => {
     getDashboardData()
 
@@ -55,12 +61,51 @@ const Dashboard = () => {
 
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-3 md:gap-6 mt-5">
           <InfoCard
-          icon = {<IoMdCard />} />
+          icon = {<IoMdCard />}
           label = "Total Tasks"
           value = {addThousandsSeparator(
             dashboardData?.charts?.taskDistribution?.All || 0
           )}
-          color = "bg-primary"
+          color = "bg-primary" />
+
+          <InfoCard
+          icon = {<IoMdCard />}
+          label = "Pending Tasks"
+          value = {addThousandsSeparator(
+            dashboardData?.charts?.taskDistribution?.Pending || 0
+          )}
+          color = "bg-primary" />
+
+          <InfoCard
+          icon = {<IoMdCard />}
+          label = "In Progress Tasks"
+          value = {addThousandsSeparator(
+            dashboardData?.charts?.taskDistribution?.InProgress || 0
+          )}
+          color = "bg-primary" />
+
+          <InfoCard
+          icon = {<IoMdCard />}
+          label = "Completed Tasks"
+          value = {addThousandsSeparator(
+            dashboardData?.charts?.taskDistribution?.Completed || 0
+          )}
+          color = "bg-primary" />
+          
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-4 md:my-6">
+        <div className="md:col-span-2">
+          <div className="card">
+            <div className="flex items-center justify-between">
+              <h5 className="text-lg">Recent Tasks</h5>
+
+              <button className='card-btn' onClick={onSeeMore}>See All <LuArrowRight className='text-base' /></button>
+            </div>
+
+            <TaskListTable tableData={dashboardData?.recentTasks || []} />
+          </div>
         </div>
       </div>
     </DashboardLayout>
