@@ -9,6 +9,8 @@ import moment from 'moment'
 import {LuTrash2} from 'react-icons/lu'
 import SelectDropdown from '../../components/Inputs/SelectDropdown'
 import SelectUsers from '../../components/Inputs/SelectUsers'
+import TodoListInput from '../../components/Inputs/TodoListInput'
+import AddAttachmentsInput from '../../components/Inputs/AddAttachmentsInput'
 
 const CreateTask = () => {
   const location = useLocation()
@@ -145,6 +147,39 @@ const CreateTask = () => {
                 }} />
               </div>
 
+            </div>
+
+            <div className="mt-3">
+              <label className='text-xs font-medium text-slate-600'>
+                TODO Checklist
+              </label>
+
+              <TodoListInput
+              todoList={taskdata?.todoChecklist}
+              setTodoList={(value) => handleValueChange("todoChecklist", value)} />
+            </div>
+
+            <div className="mt-3">
+              <label className='text-xs font-medium text-slate-600'>
+                Add Attachments
+              </label>
+
+              <AddAttachmentsInput
+              attachments={taskdata?.attachments}
+              setAttachments={(value) => handleValueChange("attachments", value)} /> 
+            </div>
+
+            {error && (
+              <p className="text-xs font-medium text-red-500 mt-5">{error}</p>
+            )}
+
+            <div className="flex justify-end mt-7">
+              <button 
+              className="add-btn"
+              onClick={handleSubmit}
+              disabled={loading}>
+                {taskId ? "Update Task" : "Create Task"}
+              </button>
             </div>
           </div>
         </div>
