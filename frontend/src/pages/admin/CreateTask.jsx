@@ -51,6 +51,29 @@ const CreateTask = () => {
   }
 
   const createTask = async() => {
+    setLoading(true)
+
+    try {
+      const todoList = taskdata.todoChecklist?.map((item) => [{
+        text: item,
+        completed: false
+      }])
+
+      const response = await axiosInstance.post(API_PATHS.TASKS.CREATE_TASK, {
+        ...taskdata,
+        dueDate: new Date(taskdata.dueDate).toISOString(),
+        todoChecklist: todoList
+      })
+
+      toast.success("Task created successfully")
+
+      clearData()
+    } catch (error) {
+      console.error("Error creating task", error);
+      setLoading(false)
+    }finally{
+      setLoading(false)
+    }
 
   }
 
@@ -59,6 +82,35 @@ const CreateTask = () => {
   }
 
   const handleSubmit = async() => {
+    setError(null)
+
+    // input validation
+    if (!taskdata.title.trim()){
+      setError("Title is required")
+      return
+    }
+    if (!taskdata.description.trim()){
+      setError("Description is required")
+      return
+    }
+    if (!taskdata.dueDate){
+      setError("Due date is required")
+      return
+    }
+    if (!taskdata.assignedTo?.length === 0){
+      setError("Task not assigned to members")
+      return
+    }
+    if (!taskdata.todoChecklist?.length === 0){
+      setError("Add at least one todo task")
+      return
+    }
+
+    if (taskId){
+      updateTask()
+      return
+    }
+    createTask()
 
   }
 

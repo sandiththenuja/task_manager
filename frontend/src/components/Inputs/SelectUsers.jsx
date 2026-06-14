@@ -22,7 +22,7 @@ const SelectUsers = ({selectedUsers, setSelectedUsers}) => {
     }
 
     const toggleUserSelection = (userId) => {
-        setSelectedUsers((prev) => 
+        setTempSelectedUsers((prev) => 
         prev.includes(userId) ? prev.filter((id) => id !== userId) : [...prev, userId])
     }
 
@@ -31,7 +31,7 @@ const SelectUsers = ({selectedUsers, setSelectedUsers}) => {
         setIsModalOpen(false)
     }
 
-    const selectdUserAvatars = allUsers.filter((user) => selectedUsers.includes(user._id)).map((user) => user.profileImageUrl)
+    const selectedUserAvatars = allUsers.filter((user) => selectedUsers.includes(user._id)).map((user) => user.profileImageUrl)
 
     useEffect(() => {
         getAllUsers()
@@ -43,19 +43,19 @@ const SelectUsers = ({selectedUsers, setSelectedUsers}) => {
         }
 
         return () => {}
-    }, selectedUsers)
+    }, [selectedUsers])
 
   return (
     <div className='space-y-4 mt-2'>
-        {selectdUserAvatars.length === 0 && (
+        {selectedUserAvatars.length === 0 && (
             <button className='card-btn' onClick={() => setIsModalOpen(true)}>
                 <LuUsers className='text0sm' /> Add Members
             </button>
         )}
 
-        {selectdUserAvatars.length > 0 && (
+        {selectedUserAvatars.length > 0 && (
             <div className="cursor-pointer" onClick={() => setIsModalOpen(true)}>
-                <AvatarGroup avatars={selectdUserAvatars} maxVisible={3} />
+                <AvatarGroup avatars={selectedUserAvatars} maxVisible={3} />
             </div>
         )}
 

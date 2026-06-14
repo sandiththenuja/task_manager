@@ -11,6 +11,7 @@ import ManageUsers from './pages/Admin/ManageUsers'
 import MyTasks from './pages/user/MyTasks'
 import ViewTaskDetails from './pages/user/ViewTaskDetails'
 import UserProvider, { UserContext } from './context/userContext'
+import { Toaster } from 'react-hot-toast'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -45,6 +46,14 @@ function App() {
           </Routes>
         </Router>
       </div>
+
+      <Toaster
+      toastOptions={{
+        className: "",
+        style: {
+          fontSize: "13px"
+        }
+      }} />
       </UserProvider>
     </>
   )
