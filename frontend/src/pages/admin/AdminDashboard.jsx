@@ -17,7 +17,7 @@ import CustomBarChart from '../../components/Charts/CustomBarChart'
 
 const COLORS = ["#8D51FF", "#0088DB", "#7BCE00"]
 
-const Dashboard = () => {
+const AdminDashboard = () => {
   useUserAuth()
 
   const {user} = useContext(UserContext)
@@ -161,4 +161,4 @@ const Dashboard = () => {
   )
 }
 
-export default Dashboard
+export default AdminDashboard

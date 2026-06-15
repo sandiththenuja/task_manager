@@ -30,7 +30,7 @@ export const API_PATHS = {
 
     REPORTS: {
         EXPORT_TASKS: "/api/reports/export/tasks",
-        EXPORT_TODO_CHECKLIST: "/api/reports/export/users"
+        EXPORT_USERS: "/api/reports/export/users"
     },
 
     IMAGE: {
