@@ -27,7 +27,7 @@ const SelectUsers = ({selectedUsers, setSelectedUsers}) => {
     }
 
     const handleAssign = () => {
-        selectedUsers(tempSelectedUsers)
+        setSelectedUsers(tempSelectedUsers)
         setIsModalOpen(false)
     }
 

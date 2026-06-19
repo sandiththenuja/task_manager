@@ -45,7 +45,7 @@ const MyTasks = () => {
   }
 
   useEffect(() => {
-    getAllTasks(filterStatus)
+    getAllTasks()
     return () => {}
   }, [filterStatus])
 
@@ -58,7 +58,7 @@ const MyTasks = () => {
           {tabs?.[0]?.count > 0 && (
               <TaskStatusTab
               tabs={tabs}
-              avtiveTab={filterStatus}
+              activeTab={filterStatus}
               setActiveTab={setFilterStatus} />
           )}
         </div>

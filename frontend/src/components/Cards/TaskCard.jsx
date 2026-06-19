@@ -15,11 +15,12 @@ const TaskCard = ({
               assignedTo,
               attachmentCount,
               completedTodoCount,
-              todoChecklist
+              todoChecklist,
+              onClick
 }) => {
     const getStatusTagColor = () => {
         switch(status){
-            case "In progress":
+            case "In Progress":
                 return "text-cyan-500 bg-cyan-50 border border-cyan-500/10"
             case "Completed":
                 return "text-lime-500 bg-lime-50 border border-lime-500/20"
@@ -48,7 +49,9 @@ const TaskCard = ({
             <div className={`text-[11px] font-medium ${getStatusTagColor()} px-4 py-0.5 rounded`}>
                 {status}
             </div>
-            <div className={`text-[11px] font-medium ${getPriorityColor()} px-4 py-0.5 rounded`}></div>
+            <div className={`text-[11px] font-medium ${getPriorityColor()} px-4 py-0.5 rounded`}>
+                {priority}
+            </div>
         </div>
     </div>
 

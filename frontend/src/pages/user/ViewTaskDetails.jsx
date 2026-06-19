@@ -5,12 +5,13 @@ import { API_PATHS } from '../../utils/apiPaths'
 import AvatarGroup from '../../components/AvatarGroup'
 import moment from 'moment'
 import {LuSquareArrowUpRight} from 'react-icons/lu'
+import DashboardLayout from '../../components/layout/DashboardLayout'
 
 const ViewTaskDetails = () => {
   const {id} = useParams()
   const [task, setTask] = useState(null)
 
-  const getStatuTagColor = (status) => {
+  const getStatusTagColor = (status) => {
     switch(status){
       case "In Progress":
         return "text-cyan-500 bg-cyan-50 border border-cyan-500/10"
@@ -25,7 +26,7 @@ const ViewTaskDetails = () => {
 
   const getTaskDetailsById = async() => {
     try {
-      const response = await axiosInstance.get(API_PATHS.TASKS.GET_TASk_BY_ID(id))
+      const response = await axiosInstance.get(API_PATHS.TASKS.GET_TASK_BY_ID(id))
 
       if (response.data){
         const taskInfo = response.data
@@ -41,7 +42,7 @@ const ViewTaskDetails = () => {
     const taskId = id
 
     if (todoCheckList && todoCheckList[index]){
-      todoCheckList[index].completed == !todoCheckList[index].completed
+      todoCheckList[index].completed = !todoCheckList[index].completed
     }
 
     try {
@@ -70,7 +71,6 @@ const ViewTaskDetails = () => {
       getTaskDetailsById()
     }
 
-    return () => {}
   }, [id])
 
   return (
@@ -84,7 +84,7 @@ const ViewTaskDetails = () => {
                 {task?.title}
               </h2>
 
-              <div className={`text-[11px] md:text-[13px] font-medium ${getStatuTagColor(task?.status)} px-4 py-0.5 rounded`}>
+              <div className={`text-[11px] md:text-[13px] font-medium ${getStatusTagColor(task?.status)} px-4 py-0.5 rounded`}>
                 {task?.status}
               </div>
             </div>
@@ -99,7 +99,7 @@ const ViewTaskDetails = () => {
               </div>
 
               <div className="col-span-6 md:col-span-4">
-                <InfoBox label="Due Date" value={task?.dueDate ? moment(task?.dueDate).format("D0 MMM YYYY") : "N/A"} />
+                <InfoBox label="Due Date" value={task?.dueDate ? moment(task?.dueDate).format("Do MMM YYYY") : "N/A"} />
               </div>
 
               <div className="col-span-6 md:col-span-4">
@@ -114,7 +114,7 @@ const ViewTaskDetails = () => {
               <label className="text-xs font-medium text-slate-500">Todo Checklist</label>
 
               {task?.todoCheckList?.map((item, index) => (
-                <TodoCheckList
+                <TodoCheckLists
                 key={`todo_${index}`}
                 text={item.text}
                 isChecked={item?.completed}
@@ -159,12 +159,12 @@ const InfoBox = ({label, value}) => {
   )
 }
 
-const todoCheckList = ({text, isChecked, onChange}) => {
+const TodoCheckLists = ({text, isChecked, onChange}) => {
   return (
     <div className="flex items-center gap-3 p-3">
       <input type="checkbox"
       checked={isChecked}
-      onChange={onchange}
+      onChange={onChange}
       className='w-4 h-4 text-primary bg-gray-100 border-gray-300 rounded-sm outline-none cursor-pointer' />
 
       <p className="text-[13px] text-gray-800">{text}</p>
