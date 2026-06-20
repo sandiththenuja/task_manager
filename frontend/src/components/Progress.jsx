@@ -3,7 +3,7 @@ import React from 'react'
 const Progress = ({progress, status}) => {
     const getColor = () => {
         switch(status){
-            case "In progress":
+            case "In Progress":
                 return "text-cyan-500 bg-cyan-50 border border-cyan-500/10"
             case "Completed":
                 return "text-indigo-500 bg-indigo-50 border border-indigo-500/20"

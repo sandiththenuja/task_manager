@@ -67,7 +67,7 @@ const ManageTasks = () => {
   }
 
   useEffect(() => {
-    getAllTasks(filterStatus)
+    getAllTasks()
     return () => {}
   }, [filterStatus])
 
@@ -90,7 +90,7 @@ const ManageTasks = () => {
             <div className="flex items-center gap-3">
               <TaskStatusTab
               tabs={tabs}
-              avtiveTab={filterStatus}
+              activeTab={filterStatus}
               setActiveTab={setFilterStatus} />
 
               <button className="hidden lg:flex download-btn" onClick={handleDownloadReport}>

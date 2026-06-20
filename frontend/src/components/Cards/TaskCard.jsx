@@ -66,11 +66,11 @@ const TaskCard = ({
             {title}
         </p>
 
-        <p className="text-xs text-gray-500 mt-1.5 line-clamp-2 leading-2.5">
+        <p className="text-xs text-gray-500 mt-1.5 line-clamp-2 leading-6">
             {description}
         </p>
 
-        <p className="text-[13px] text-gray-700/80 font-medium mt-2 mb-2 leading-4.5">
+        <p className="text-[13px] text-gray-700/80 font-medium mt-2 mb-2 leading-6">
             Task Done:{" "}
             <span className="font-semibold text-gray-700">
                 {completedTodoCount} / {todoChecklist.length || 0}

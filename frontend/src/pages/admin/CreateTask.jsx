@@ -56,10 +56,10 @@ const CreateTask = () => {
     setLoading(true)
 
     try {
-      const todoList = taskdata.todoChecklist?.map((item) => [{
+      const todoList = taskdata.todoChecklist?.map((item) => ({
         text: item,
         completed: false
-      }])
+      }))
 
       const response = await axiosInstance.post(API_PATHS.TASKS.CREATE_TASK, {
         ...taskdata,
@@ -68,10 +68,11 @@ const CreateTask = () => {
       })
 
       toast.success("Task created successfully")
-
       clearData()
+      navigate('/admin/tasks') 
     } catch (error) {
       console.error("Error creating task", error);
+      toast.error(error.response?.data?.message || "Failed to create task")
       setLoading(false)
     }finally{
       setLoading(false)
@@ -124,11 +125,11 @@ const CreateTask = () => {
       setError("Due date is required")
       return
     }
-    if (!taskdata.assignedTo?.length === 0){
+    if (!taskdata.assignedTo || taskdata.assignedTo.length === 0){
       setError("Task not assigned to members")
       return
     }
-    if (!taskdata.todoChecklist?.length === 0){
+    if (!taskdata.todoChecklist || taskdata.todoChecklist.length === 0){
       setError("Add at least one todo task")
       return
     }
@@ -143,7 +144,7 @@ const CreateTask = () => {
 
   const getTaskDetailsById = async() => {
     try {
-      const response = await axiosInstance.get(API_PATHS.TASKS.GET_TASk_BY_ID(taskId))
+      const response = await axiosInstance.get(API_PATHS.TASKS.GET_TASK_BY_ID(taskId))
 
       if (response.data){
         const taskInfo = response.data

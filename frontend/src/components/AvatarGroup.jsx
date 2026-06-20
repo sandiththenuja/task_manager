@@ -10,7 +10,7 @@ const AvatarGroup = ({avatars, maxVisible = 3}) => {
             alt={`Avatar ${index}`}
             className='w-9 h-9 rounded-full border-2 border-white -ml-3 first:ml-0' />
         ))}
-        {avatars.lenght > 0 && (
+        {avatars.length > 0 && (
             <div className="w-9 h-9 flex items-center justify-center bg-blue-50 text-sm font-medium rounded-full border-2 border-white -ml-3">
                 +{avatars.length - maxVisible}
             </div>

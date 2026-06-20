@@ -11,7 +11,7 @@ const getTasks = async(req, res) => {
         if (status){
             filter.status = status
         }
-
+completedCount
         let tasks
 
         if (req.user.role === "admin"){
@@ -29,8 +29,8 @@ const getTasks = async(req, res) => {
         // add completed todo checklist count to each task
         tasks = await Promise.all(
             tasks.map(async (task) => {
-                const completedCount = task.todoCheckList 
-                ? task.todoCheckList.filter((item) => item.completed).length 
+                const completedCount = task.todoChecklist 
+                ? task.todoChecklist.filter((item) => item.completed).length 
                 : 0 
 
                 return {...task._doc, completedTodoCount: completedCount}
@@ -97,7 +97,7 @@ const getTaskById = async(req, res) => {
 // @access - Private
 const createTask = async(req, res) => {
     try {
-        const {title, description, priority, dueDate, assignedTo, attachments, todoCheckList} = req.body
+        const {title, description, priority, dueDate, assignedTo, attachments, todoChecklist} = req.body
 
         if (!Array.isArray(assignedTo)){
             return res.status(400).json({message: "assignedTo must be array of user id"})
@@ -110,7 +110,7 @@ const createTask = async(req, res) => {
             dueDate,
             assignedTo,
             createdBy: req.user._id,
-            todoCheckList,
+            todoChecklist,
             attachments
         })
 
@@ -203,7 +203,7 @@ const updateTaskCheckList = async(req, res) => {
         const {todoCheckList} = req.body
         const task = await Task.findById(req.params.id)
 
-        if (!tasks) return res.status(404).json({message: "Task not found"})
+        if (!task) return res.status(404).json({message: "Task not found"})
 
         if (!task.assignedTo.includes(req.user._id) && req.user.role !== "admin"){
             return res.status(403).json({message: "Not authorized to update check list"})
@@ -215,7 +215,7 @@ const updateTaskCheckList = async(req, res) => {
         const completedCount = task.todoChecklist.filter((item) => item.completed).length
         const totalItems = task.todoChecklist.length
         task.progress = totalItems > 0 ? Math.round((completedCount / totalItems) * 100) : 0
-
+        
         // auto mark task as completed if all items are checked
         if (task.progress === 100){
             task.status = "Completed"

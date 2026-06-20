@@ -27,7 +27,7 @@ const ViewTaskDetails = () => {
   const getTaskDetailsById = async() => {
     try {
       const response = await axiosInstance.get(API_PATHS.TASKS.GET_TASK_BY_ID(id))
-
+      console.log("Task API Response:", response.data)  // ← ADD THIS
       if (response.data){
         const taskInfo = response.data
         setTask(taskInfo)
@@ -38,24 +38,24 @@ const ViewTaskDetails = () => {
   }
 
   const updateTodoChecklist = async(index) => {
-    const todoCheckList = [...task?.todoCheckList]
+    const todoChecklist = [...task?.todoChecklist]
     const taskId = id
-
-    if (todoCheckList && todoCheckList[index]){
-      todoCheckList[index].completed = !todoCheckList[index].completed
+    
+    if (todoChecklist && todoChecklist[index]){
+      todoChecklist[index].completed = !todoChecklist[index].completed
     }
 
     try {
       const response = await axiosInstance.put(API_PATHS.TASKS.UPDATE_TODO_CHECKLIST(taskId),
-    {todoCheckList})
+    {todoChecklist})
 
-    if (response.status === 200){
-      setTask(response.data?.task || task)
-    }else{
-      todoCheckList[index].completed = !todoCheckList[index].completed
-    }
+      if (response.status === 200){
+        setTask(response.data?.task || task)
+      }else{
+        todoChecklist[index].completed = !todoChecklist[index].completed
+      }
     } catch (error) {
-      todoCheckList[index].completed = !todoCheckList[index].completed
+      todoChecklist[index].completed = !todoChecklist[index].completed
     }
   }
 
@@ -113,7 +113,7 @@ const ViewTaskDetails = () => {
             <div className="mt-2">
               <label className="text-xs font-medium text-slate-500">Todo Checklist</label>
 
-              {task?.todoCheckList?.map((item, index) => (
+              {task?.todoChecklist?.map((item, index) => (
                 <TodoCheckLists
                 key={`todo_${index}`}
                 text={item.text}
