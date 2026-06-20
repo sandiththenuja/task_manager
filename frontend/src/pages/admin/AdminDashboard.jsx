@@ -42,9 +42,9 @@ const AdminDashboard = () => {
     setPieChartData(taskDistributionData)
 
     const priorityLevelData = [
-      {prority: "Low", count: taskPriorityLevels?.Low || 0},
-      {prority: "Medium", count: taskPriorityLevels?.Medium || 0},
-      {prority: "High", count: taskPriorityLevels?.High || 0},
+      {priority: "Low", count: taskPriorityLevels?.Low || 0},
+      {priority: "Medium", count: taskPriorityLevels?.Medium || 0},
+      {priority: "High", count: taskPriorityLevels?.High || 0},
     ]
 
     setBarChartData(priorityLevelData)

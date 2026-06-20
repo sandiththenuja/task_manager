@@ -11,7 +11,7 @@ const getTasks = async(req, res) => {
         if (status){
             filter.status = status
         }
-completedCount
+
         let tasks
 
         if (req.user.role === "admin"){
@@ -200,7 +200,7 @@ const updateTaskStatus = async(req, res) => {
 // @access - Private
 const updateTaskCheckList = async(req, res) => {
     try {
-        const {todoCheckList} = req.body
+        const {todoChecklist} = req.body
         const task = await Task.findById(req.params.id)
 
         if (!task) return res.status(404).json({message: "Task not found"})
@@ -209,7 +209,7 @@ const updateTaskCheckList = async(req, res) => {
             return res.status(403).json({message: "Not authorized to update check list"})
         }
 
-        task.todoChecklist = todoCheckList   // replace with updated check list\
+        task.todoChecklist = todoChecklist   // replace with updated check list\
 
         // auto update progress based on checklist comlpetion
         const completedCount = task.todoChecklist.filter((item) => item.completed).length

@@ -4,7 +4,7 @@ const {exportTaskReport, exportUserReport} = require('../controllers/reportContr
 
 const router = express.Router()
 
-router.get("/exports/tasks", protect, adminOnly, exportTaskReport)
+router.get("/export/tasks", protect, adminOnly, exportTaskReport)
 router.get("/export/users", protect, adminOnly, exportUserReport)
 
 module.exports = router

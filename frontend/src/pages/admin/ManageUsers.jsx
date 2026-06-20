@@ -20,9 +20,9 @@ const ManageUsers = () => {
     }
   }
 
-  const hadleDownloadReport = async() => {
+  const handleDownloadReport = async() => {
     try {
-      const respose = await axiosInstance.get(API_PATHS.REPORTS.EXPORT_USERS, {
+      const response = await axiosInstance.get(API_PATHS.REPORTS.EXPORT_USERS, {
         responseType: "blob"
       })
 
@@ -54,7 +54,7 @@ const ManageUsers = () => {
         <div className="flex md:flex-row md:items-center justify-between">
           <h2 className="text-xl md:text-xl font-medium">Team Members</h2>
 
-          <button className="flex md:flex download-btn" onClick={hadleDownloadReport}>
+          <button className="flex md:flex download-btn" onClick={handleDownloadReport}>
             <LuFileSpreadsheet className='text-lg' />
             Download Report
           </button>

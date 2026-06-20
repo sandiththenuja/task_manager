@@ -101,12 +101,12 @@ const exportUserReport = async(req, res) => {
             {header: "Completed Tasks", key: "completedTasks", width: 20}
         ]
 
-        Object.values(userTaskMap.forEach((user) => {
+        Object.values(userTaskMap).forEach((user) => {
             worksheet.addRow(user)
-        }))
+        })
 
         res.setHeader(
-            "Contect-Type",
+            "Content-Type",
             "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         )
         res.setHeader(
